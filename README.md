@@ -62,14 +62,8 @@ This project is a Streamlit-based web application that generates contour maps fr
 #### Contour Visualization
 ![Contour Visualization](assets/Contour_Visualization.png#width=600)
 
-#### Uploading DXF Files to Supabase
-![Upload DXF Files](assets/Upload_DXF_Files.png#width=600)
-
 #### DXF Output in Viewer
-![DXF Output](assets/dxf_output.png#width=600)
-
-#### Project Directory Structure
-![Project Directory](assets/directory_structure.png#width=600)
+![DXF Output](assets/Upload_DXF_Files.png#width=600)
 
 ### Tech Stack
 - **Python 3.8–3.11**: Core programming language.
