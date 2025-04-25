@@ -310,8 +310,24 @@ if polygon_coordinates is None:
     if 'drawn_geojson' not in st.session_state:
         st.session_state.drawn_geojson = None
     
-    # Create the Folium map
-    map_object = folium.Map(location=[3.1, 101.65], zoom_start=14)
+    # Create the Folium map with multiple base layers
+    map_object = folium.Map(location=[3.1, 101.65], zoom_start=14, tiles=None)
+    
+    # Add OpenStreetMap (standard map) layer
+    folium.TileLayer(
+        tiles='OpenStreetMap',
+        name='Standard Map',
+        attr='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    ).add_to(map_object)
+    
+    # Add Satellite layer (using Stamen Terrain as a satellite-like option)
+    folium.TileLayer(
+        tiles='Stamen Terrain',
+        name='Satellite Map',
+        attr='Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>'
+    ).add_to(map_object)
+    
+    # Add draw plugin
     draw = folium.plugins.Draw(
         export=True,
         draw_options={
@@ -325,6 +341,9 @@ if polygon_coordinates is None:
         edit_options={'remove': True}
     )
     draw.add_to(map_object)
+    
+    # Add layer control to toggle between map types
+    folium.LayerControl().add_to(map_object)
     
     # Render the map with increased size
     output = st_folium(map_object, height=600, width="100%", returned_objects=["last_active_drawing"])
