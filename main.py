@@ -288,6 +288,14 @@ def create_contour_dxf_fallback(grid: list, elevations: list, num_levels: int = 
 # Initialize polygon coordinates
 polygon_coordinates = None
 
+# Initialize session state for map and drawn GeoJSON
+if 'drawn_geojson' not in st.session_state:
+    st.session_state.drawn_geojson = None
+if 'map_center' not in st.session_state:
+    st.session_state.map_center = [3.1, 101.65]  # Default map center
+if 'map_zoom' not in st.session_state:
+    st.session_state.map_zoom = 14  # Default zoom level
+
 # Attempt to load GeoJSON if uploaded
 uploaded_geojson = st.file_uploader("Upload GeoJSON (optional)", type=["geojson", "json"])
 if uploaded_geojson:
@@ -296,6 +304,7 @@ if uploaded_geojson:
         if "features" in geojson_data and geojson_data["features"]:
             if "geometry" in geojson_data["features"][0] and geojson_data["features"][0]["geometry"]["type"] == "Polygon":
                 polygon_coordinates = geojson_data["features"][0]["geometry"]["coordinates"][0]
+                st.session_state.drawn_geojson = geojson_data["features"][0]  # Save GeoJSON to session state
                 st.success("Polygon loaded from GeoJSON.")
             else:
                 st.error("The uploaded GeoJSON does not contain a valid polygon.")
@@ -304,68 +313,84 @@ if uploaded_geojson:
     except Exception as e:
         st.error(f"Error loading GeoJSON file: {e}")
 
-# Display map interface if no polygon coordinates are defined
-if polygon_coordinates is None:
-    # Initialize session state for storing drawn GeoJSON
-    if 'drawn_geojson' not in st.session_state:
-        st.session_state.drawn_geojson = None
-    
-    # Create the Folium map
-    map_object = folium.Map(location=[3.1, 101.65], zoom_start=14)
-    draw = folium.plugins.Draw(
-        export=True,
-        draw_options={
-            'polyline': False,
-            'polygon': True,
-            'circle': False,
-            'rectangle': True,
-            'marker': False,
-            'circlemarker': False
-        },
-        edit_options={'remove': True}
-    )
-    draw.add_to(map_object)
-    
-    # Render the map with increased size
-    output = st_folium(map_object, height=600, width="100%", returned_objects=["last_active_drawing"])
-    
-    # Custom JavaScript/CSS to ensure Export button is below Delete button
-    components.html(
-        """
-        <style>
-            /* Ensure Export button is below Delete button */
-            .leaflet-draw-actions li:last-child a[title="Export"] {
-                order: 2; /* Export button comes after Delete */
-            }
-            .leaflet-draw-actions li a[title="Delete"] {
-                order: 1; /* Delete button comes before Export */
-            }
-        </style>
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                setTimeout(function() {
-                    const map = document.querySelector('div[data-testid="stFoliumMap"] iframe').contentWindow;
-                    map.on('draw:created', function(e) {
-                        const geojson = e.layer.toGeoJSON();
-                        localStorage.setItem('drawn_geojson', JSON.stringify(geojson));
-                    });
-                }, 1000);
-            });
-        </script>
-        """,
-        height=0
-    )
-    
-    # Save drawn GeoJSON to session state
-    if output and output["last_active_drawing"]:
-        shape = output["last_active_drawing"]
-        if shape['geometry']['type'] == 'Polygon':
-            polygon_coordinates = shape['geometry']['coordinates'][0]  # [lng, lat]
-            st.success("Polygon area selected from map.")
-            st.session_state.drawn_geojson = shape
-        else:
-            st.warning("Please draw a polygon on the map.")
-else:
+# Always render the map, using session state for center and zoom
+map_object = folium.Map(
+    location=st.session_state.map_center,
+    zoom_start=st.session_state.map_zoom
+)
+draw = folium.plugins.Draw(
+    export=True,
+    draw_options={
+        'polyline': False,
+        'polygon': True,
+        'circle': False,
+        'rectangle': True,
+        'marker': False,
+        'circlemarker': False
+    },
+    edit_options={'remove': True}
+)
+draw.add_to(map_object)
+
+# Add previously drawn GeoJSON to the map if it exists
+if st.session_state.drawn_geojson:
+    folium.GeoJson(
+        st.session_state.drawn_geojson,
+        style_function=lambda _: {'fillColor': 'blue', 'color': 'blue', 'weight': 2, 'fillOpacity': 0.2}
+    ).add_to(map_object)
+
+# Render the map with increased size
+output = st_folium(
+    map_object,
+    height=600,
+    width="100%",
+    returned_objects=["last_active_drawing", "center", "zoom"]
+)
+
+# Custom JavaScript/CSS to ensure Export button is below Delete button
+components.html(
+    """
+    <style>
+        /* Ensure Export button is below Delete button */
+        .leaflet-draw-actions li:last-child a[title="Export"] {
+            order: 2; /* Export button comes after Delete */
+        }
+        .leaflet-draw-actions li a[title="Delete"] {
+            order: 1; /* Delete button comes before Export */
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(function() {
+                const map = document.querySelector('div[data-testid="stFoliumMap"] iframe').contentWindow;
+                map.on('draw:created', function(e) {
+                    const geojson = e.layer.toGeoJSON();
+                    localStorage.setItem('drawn_geojson', JSON.stringify(geojson));
+                });
+            }, 1000);
+        });
+    </script>
+    """,
+    height=0
+)
+
+# Update session state with map center and zoom
+if output and "center" in output and "zoom" in output:
+    st.session_state.map_center = [output["center"]["lat"], output["center"]["lng"]]
+    st.session_state.map_zoom = output["zoom"]
+
+# Save drawn GeoJSON to session state
+if output and output["last_active_drawing"]:
+    shape = output["last_active_drawing"]
+    if shape['geometry']['type'] == 'Polygon':
+        polygon_coordinates = shape['geometry']['coordinates'][0]  # [lng, lat]
+        st.session_state.drawn_geojson = shape
+        st.success("Polygon area selected from map.")
+    else:
+        st.warning("Please draw a polygon on the map.")
+
+# Proceed with contour generation if polygon coordinates are defined
+if polygon_coordinates is not None:
     # Initialize session state for plots, DXF stream, and upload status
     if 'elevation_grid_plot' not in st.session_state:
         st.session_state.elevation_grid_plot = None
