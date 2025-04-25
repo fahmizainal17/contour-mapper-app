@@ -165,3 +165,8 @@ __pycache__/
 *.egg-info
 *.egg
 *.whl
+
+
+.streamlit
+
+secrets.toml
