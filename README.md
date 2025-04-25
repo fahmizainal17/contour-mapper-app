@@ -1,37 +1,6 @@
-### Observations from the Screenshot
-The directory structure (`CONTOUR-MAPPER-WORKSPACE/contour-mapper-app`) contains the following relevant files and folders:
-
-- **Main Files**:
-  - `main.py` (previously referred to as `app.py` in the README).
-  - `component.py`.
-  - `.env`.
-  - `requirements.txt`.
-  - `.gitignore`.
-
-- **Assets Folder** (`assets`):
-  - `background_map.jpg` (previously assumed as a background image, not used in the README yet).
-  - `Contour_Visualization.png` (previously `contour_visualization.png`).
-  - `Elevation_Grid.png` (previously `elevation_grid.png`).
-  - `Homepage.png` (previously `homepage.png`).
-  - `Selected_Area.png` (previously `drawn_polygon.png`).
-  - `Upload_DXF_Files.png` (previously not referenced, can be added to show the upload step).
-  - `Upload_Geojson_Data.png` (previously not referenced, can be added to show the GeoJSON upload step).
-  - `contour_mapper_image.png` (previously `homepage_updated.png`).
-  - `ProfilePhoto_Fahmi_DataScientist.png` (previously not referenced, can be added to the About section).
-
-- **Photos Folder** (`photos`):
-  - Contains the same images as the `assets` folder, likely duplicates. We'll use the `assets` folder for consistency.
-
-### Updated README with Correct File Names and All Images
-I'll update the README to match the exact spellings of the image files (e.g., `Contour_Visualization.png` instead of `contour_visualization.png`), include all images, and add the new directory structure screenshot. The images will be constrained to `width=600` to ensure they are not too large.
-
----
-
-# README.md
-
 ## Contour Map Generator with Google Elevation and Supabase
 
-![Homepage Screenshot](assets/contour_mapper_image.png#width=600)
+![Original Homepage](assets/Homepage.png#width=600)
 
 This project is a Streamlit-based web application that generates contour maps from a user-defined area using the Google Elevation API and stores the output in Supabase. The application allows users to draw an area on a map or upload a GeoJSON file, fetches elevation data, generates contours, and exports them as a DXF file. The project uses modern web technologies and geospatial libraries to provide a seamless user experience for creating topographic contour maps.
 
@@ -47,14 +16,12 @@ This project is a Streamlit-based web application that generates contour maps fr
 - **Customizable UI**: The Export button is positioned below the Delete button in the map's draw toolbar for better usability.
 
 ### Screenshots
-#### Original Homepage
-![Original Homepage](assets/Homepage.png#width=600)
-
-#### Uploading GeoJSON Data
-![Upload GeoJSON Data](assets/Upload_Geojson_Data.png#width=600)
 
 #### Map with Selected Area
 ![Map with Selected Area](assets/Selected_Area.png#width=600)
+
+#### Uploading GeoJSON Data
+![Upload GeoJSON Data](assets/Upload_Geojson_Data.png#width=600)
 
 #### Elevation Grid
 ![Elevation Grid](assets/Elevation_Grid.png#width=600)
