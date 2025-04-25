@@ -1,0 +1,12 @@
+ezdxf==1.0.3
+folium==0.19.5
+matplotlib==3.10.1
+numpy==2.2.5
+python-dotenv==1.1.0
+Requests==2.32.3
+scipy==1.15.2
+Shapely==2.1.0
+streamlit==1.40.1
+streamlit_folium==0.25.0
+supabase==2.15.0
+streamlit-folium==0.25.0
