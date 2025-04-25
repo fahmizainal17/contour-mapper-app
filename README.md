@@ -1,6 +1,6 @@
 ## Contour Map Generator with Google Elevation and Supabase
 
-![Homepage Screenshot](assets/homepage.png)
+![Homepage Screenshot](assets/Homepage.png)
 
 This project is a Streamlit-based web application that generates contour maps from a user-defined area using the Google Elevation API and stores the output in Supabase. The application allows users to draw an area on a map or upload a GeoJSON file, fetches elevation data, generates contours, and exports them as a DXF file. The project uses modern web technologies and geospatial libraries to provide a seamless user experience for creating topographic contour maps.
 
@@ -17,13 +17,13 @@ This project is a Streamlit-based web application that generates contour maps fr
 
 ### Screenshots
 #### Elevation Grid
-![Elevation Grid](assets/elevation_grid.png)
+![Elevation Grid](assets/Elevation_Grid.png)
 
 #### Contour Visualization
-![Contour Visualization](assets/contour_visualization.png)
+![Contour Visualization](assets/Contour_Visualization.png)
 
 #### DXF Output in Viewer
-![DXF Output](assets/dxf_output.png)
+![DXF Output](assets/Upload_DXF_Files.png)
 
 ### Tech Stack
 - **Python 3.8–3.11**: Core programming language.
