@@ -1,5 +1,7 @@
 ## Contour Map Generator with Google Elevation and Supabase
 
+![Homepage Screenshot](assets/homepage.png)
+
 This project is a Streamlit-based web application that generates contour maps from a user-defined area using the Google Elevation API and stores the output in Supabase. The application allows users to draw an area on a map or upload a GeoJSON file, fetches elevation data, generates contours, and exports them as a DXF file. The project uses modern web technologies and geospatial libraries to provide a seamless user experience for creating topographic contour maps.
 
 ### Features
@@ -12,6 +14,16 @@ This project is a Streamlit-based web application that generates contour maps fr
 - **Projected Coordinates**: Transform geographic coordinates to UTM Zone 48N (EPSG:32648) for accurate DXF output.
 - **Wide Layout with Sidebar**: A wide layout with a sidebar for debug logs, making the map larger and user-friendly.
 - **Customizable UI**: The Export button is positioned below the Delete button in the map's draw toolbar for better usability.
+
+### Screenshots
+#### Elevation Grid
+![Elevation Grid](assets/elevation_grid.png)
+
+#### Contour Visualization
+![Contour Visualization](assets/contour_visualization.png)
+
+#### DXF Output in Viewer
+![DXF Output](assets/dxf_output.png)
 
 ### Tech Stack
 - **Python 3.8–3.11**: Core programming language.
@@ -52,7 +64,7 @@ Follow these steps to set up and run the Contour Map Generator project on your l
      mkdir contour-map-generator
      cd contour-map-generator
      ```
-   - Copy the main script (`app.py`) provided above into the directory.
+   - Copy the main script (`app.py`) provided in the project into the directory.
    - Create a `component.py` file for the `page_style()` function (see Step 2).
 
 ### Step 2: Set Up the `component.py` File
@@ -85,13 +97,27 @@ The `page_style()` function is assumed to be a custom styling function. If you d
    If you have a more complex `page_style()` function, ensure it doesn’t interfere with the sidebar or map layout (e.g., avoid `display: none` on `stSidebar`).
 
 ### Step 3: Create the Main Script (`app.py`)
-Copy the updated code provided above into a file named `app.py` in the project directory:
+Copy the main script (`app.py`) provided in the project into a file named `app.py` in the project directory:
 ```bash
 touch app.py
 ```
-Then, paste the code from the previous response into `app.py`.
+Then, paste the code from the project into `app.py`.
 
-### Step 4: Install Dependencies
+### Step 4: Set Up the Assets Folder
+1. Create an `assets` folder in the project directory:
+   ```bash
+   mkdir assets
+   ```
+
+2. Save the provided images in the `assets` folder with the following names:
+   - Homepage screenshot: `homepage.png`
+   - Elevation Grid screenshot: `elevation_grid.png`
+   - Contour Visualization screenshot: `contour_visualization.png`
+   - DXF Output screenshot: `dxf_output.png`
+
+   Ensure the file names match exactly as referenced in the README (`homepage.png`, `elevation_grid.png`, etc.).
+
+### Step 5: Install Dependencies
 1. Create a virtual environment (recommended):
    ```bash
    python -m venv venv
@@ -120,7 +146,7 @@ Then, paste the code from the previous response into `app.py`.
    pip show streamlit streamlit-folium folium requests numpy matplotlib scipy supabase ezdxf pyproj python-dotenv
    ```
 
-### Step 5: Set Up Environment Variables
+### Step 6: Set Up Environment Variables
 1. Create a `.env` file in the project directory:
    ```bash
    touch .env
@@ -138,7 +164,7 @@ Then, paste the code from the previous response into `app.py`.
      - Go to your project’s settings > API to find the URL and anon key.
      - Create a storage bucket named `contours` in Supabase (used in the script).
 
-### Step 6: Run the Application
+### Step 7: Run the Application
 1. Activate the virtual environment (if not already activated):
    ```bash
    source venv/bin/activate  # On Windows: venv\Scripts\activate
@@ -151,7 +177,7 @@ Then, paste the code from the previous response into `app.py`.
 
 3. Open your browser and go to the URL displayed in the terminal (usually `http://localhost:8501`).
 
-### Step 7: Test the Application
+### Step 8: Test the Application
 1. **Verify the UI**:
    - The app should open in wide mode with a sidebar on the left.
    - The map should be large (600px height) and stretch across the main content area (excluding the sidebar).
@@ -237,3 +263,29 @@ This project is licensed under the MIT License. See the `LICENSE` file for detai
 - **Performance**: For large areas or fine grid resolutions (e.g., 0.0002), the Google Elevation API requests may take longer. Adjust the `chunk_size` in `fetch_elevation` if needed.
 - **Coordinate Projection**: The project uses UTM Zone 48N (EPSG:32648), suitable for the default map location (near 101.62°E, 3.11°N). For other regions, adjust the CRS in the `transformer` setup.
 - **CAD Compatibility**: The generated DXF files are in the R2010 format, compatible with most CAD software. Test with your preferred CAD tool to ensure compatibility.
+
+---
+
+### Notes on Assets Folder and Image References
+1. **Assets Folder Structure**:
+   - Ensure the `assets` folder is in the root directory of your project (same level as `app.py` and `README.md`).
+   - The folder should contain the following images:
+     - `homepage.png`: Screenshot of the app’s homepage.
+     - `elevation_grid.png`: Screenshot of the Elevation Grid visualization.
+     - `contour_visualization.png`: Screenshot of the Contour Visualization.
+     - `dxf_output.png`: Screenshot of the DXF file opened in a viewer.
+
+2. **Image File Names**:
+   - The README references the images as `assets/homepage.png`, `assets/elevation_grid.png`, etc. Ensure the file names match exactly, including the extension (`.png`).
+
+3. **Hosting on GitHub**:
+   - If you’re hosting the project on GitHub, push the `assets` folder along with the images to the repository:
+     ```bash
+     git add assets/*
+     git commit -m "Add assets folder with screenshots"
+     git push origin main
+     ```
+   - The image links (`assets/homepage.png`) will work automatically when viewed on GitHub.
+
+4. **Local Testing**:
+   - When testing the README locally, ensure you’re viewing it in a Markdown viewer that supports local image paths (e.g., VS Code with a Markdown preview extension). Alternatively, convert the README to HTML to view the images.
