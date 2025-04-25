@@ -1,6 +1,37 @@
+### Observations from the Screenshot
+The directory structure (`CONTOUR-MAPPER-WORKSPACE/contour-mapper-app`) contains the following relevant files and folders:
+
+- **Main Files**:
+  - `main.py` (previously referred to as `app.py` in the README).
+  - `component.py`.
+  - `.env`.
+  - `requirements.txt`.
+  - `.gitignore`.
+
+- **Assets Folder** (`assets`):
+  - `background_map.jpg` (previously assumed as a background image, not used in the README yet).
+  - `Contour_Visualization.png` (previously `contour_visualization.png`).
+  - `Elevation_Grid.png` (previously `elevation_grid.png`).
+  - `Homepage.png` (previously `homepage.png`).
+  - `Selected_Area.png` (previously `drawn_polygon.png`).
+  - `Upload_DXF_Files.png` (previously not referenced, can be added to show the upload step).
+  - `Upload_Geojson_Data.png` (previously not referenced, can be added to show the GeoJSON upload step).
+  - `contour_mapper_image.png` (previously `homepage_updated.png`).
+  - `ProfilePhoto_Fahmi_DataScientist.png` (previously not referenced, can be added to the About section).
+
+- **Photos Folder** (`photos`):
+  - Contains the same images as the `assets` folder, likely duplicates. We'll use the `assets` folder for consistency.
+
+### Updated README with Correct File Names and All Images
+I'll update the README to match the exact spellings of the image files (e.g., `Contour_Visualization.png` instead of `contour_visualization.png`), include all images, and add the new directory structure screenshot. The images will be constrained to `width=600` to ensure they are not too large.
+
+---
+
+# README.md
+
 ## Contour Map Generator with Google Elevation and Supabase
 
-![Homepage Screenshot](assets/Homepage.png)
+![Homepage Screenshot](assets/contour_mapper_image.png#width=600)
 
 This project is a Streamlit-based web application that generates contour maps from a user-defined area using the Google Elevation API and stores the output in Supabase. The application allows users to draw an area on a map or upload a GeoJSON file, fetches elevation data, generates contours, and exports them as a DXF file. The project uses modern web technologies and geospatial libraries to provide a seamless user experience for creating topographic contour maps.
 
@@ -16,14 +47,29 @@ This project is a Streamlit-based web application that generates contour maps fr
 - **Customizable UI**: The Export button is positioned below the Delete button in the map's draw toolbar for better usability.
 
 ### Screenshots
+#### Original Homepage
+![Original Homepage](assets/Homepage.png#width=600)
+
+#### Uploading GeoJSON Data
+![Upload GeoJSON Data](assets/Upload_Geojson_Data.png#width=600)
+
+#### Map with Selected Area
+![Map with Selected Area](assets/Selected_Area.png#width=600)
+
 #### Elevation Grid
-![Elevation Grid](assets/Elevation_Grid.png)
+![Elevation Grid](assets/Elevation_Grid.png#width=600)
 
 #### Contour Visualization
-![Contour Visualization](assets/Contour_Visualization.png)
+![Contour Visualization](assets/Contour_Visualization.png#width=600)
+
+#### Uploading DXF Files to Supabase
+![Upload DXF Files](assets/Upload_DXF_Files.png#width=600)
 
 #### DXF Output in Viewer
-![DXF Output](assets/Upload_DXF_Files.png)
+![DXF Output](assets/dxf_output.png#width=600)
+
+#### Project Directory Structure
+![Project Directory](assets/directory_structure.png#width=600)
 
 ### Tech Stack
 - **Python 3.8–3.11**: Core programming language.
@@ -64,7 +110,7 @@ Follow these steps to set up and run the Contour Map Generator project on your l
      mkdir contour-map-generator
      cd contour-map-generator
      ```
-   - Copy the main script (`app.py`) provided in the project into the directory.
+   - Copy the main script (`main.py`) provided in the project into the directory.
    - Create a `component.py` file for the `page_style()` function (see Step 2).
 
 ### Step 2: Set Up the `component.py` File
@@ -96,12 +142,12 @@ The `page_style()` function is assumed to be a custom styling function. If you d
 
    If you have a more complex `page_style()` function, ensure it doesn’t interfere with the sidebar or map layout (e.g., avoid `display: none` on `stSidebar`).
 
-### Step 3: Create the Main Script (`app.py`)
-Copy the main script (`app.py`) provided in the project into a file named `app.py` in the project directory:
+### Step 3: Create the Main Script (`main.py`)
+Copy the main script provided in the project into a file named `main.py` in the project directory:
 ```bash
-touch app.py
+touch main.py
 ```
-Then, paste the code from the project into `app.py`.
+Then, paste the code from the project into `main.py`.
 
 ### Step 4: Set Up the Assets Folder
 1. Create an `assets` folder in the project directory:
@@ -110,12 +156,17 @@ Then, paste the code from the project into `app.py`.
    ```
 
 2. Save the provided images in the `assets` folder with the following names:
-   - Homepage screenshot: `homepage.png`
-   - Elevation Grid screenshot: `elevation_grid.png`
-   - Contour Visualization screenshot: `contour_visualization.png`
+   - Updated homepage screenshot: `contour_mapper_image.png`
+   - Original homepage screenshot: `Homepage.png`
+   - GeoJSON upload screenshot: `Upload_Geojson_Data.png`
+   - Map with selected area: `Selected_Area.png`
+   - Elevation Grid screenshot: `Elevation_Grid.png`
+   - Contour Visualization screenshot: `Contour_Visualization.png`
+   - DXF upload screenshot: `Upload_DXF_Files.png`
    - DXF Output screenshot: `dxf_output.png`
+   - Directory structure screenshot: `directory_structure.png`
 
-   Ensure the file names match exactly as referenced in the README (`homepage.png`, `elevation_grid.png`, etc.).
+   Ensure the file names match exactly as referenced in the README.
 
 ### Step 5: Install Dependencies
 1. Create a virtual environment (recommended):
@@ -124,9 +175,14 @@ Then, paste the code from the project into `app.py`.
    source venv/bin/activate  # On Windows: venv\Scripts\activate
    ```
 
-2. Install the required Python packages:
+2. Install the required Python packages using the `requirements.txt` file (if provided) or manually:
    ```bash
    pip install streamlit streamlit-folium folium requests numpy matplotlib scipy supabase ezdxf==1.0.3 pyproj python-dotenv
+   ```
+
+   If using `requirements.txt`:
+   ```bash
+   pip install -r requirements.txt
    ```
 
    - `streamlit`: For the web app framework.
@@ -172,7 +228,7 @@ Then, paste the code from the project into `app.py`.
 
 2. Run the Streamlit app:
    ```bash
-   streamlit run app.py
+   streamlit run main.py
    ```
 
 3. Open your browser and go to the URL displayed in the terminal (usually `http://localhost:8501`).
@@ -207,16 +263,16 @@ Then, paste the code from the project into `app.py`.
 
 ## Usage Guide
 1. **Launch the App**:
-   - Run `streamlit run app.py` and open the provided URL in your browser.
+   - Run `streamlit run main.py` and open the provided URL in your browser.
 
 2. **Define an Area**:
-   - **Option 1**: Upload a GeoJSON file with a polygon using the file uploader.
-   - **Option 2**: Draw a polygon or rectangle on the map using the Leaflet Draw toolbar. Click the Export button to save the area as GeoJSON.
+   - **Option 1**: Upload a GeoJSON file with a polygon using the file uploader (see "Uploading GeoJSON Data" screenshot).
+   - **Option 2**: Draw a polygon or rectangle on the map using the Leaflet Draw toolbar (see "Map with Selected Area" screenshot). Click the Export button to save the area as GeoJSON.
 
 3. **Generate Contours**:
    - Adjust the "Grid Resolution" (smaller values = higher resolution, slower processing) and "Contour Levels" (number of contour lines).
-   - Click "Generate Contours" to fetch elevation data and create contour lines.
-   - Download the generated DXF file or upload it to Supabase.
+   - Click "Generate Contours" to fetch elevation data and create contour lines (see "Elevation Grid" and "Contour Visualization" screenshots).
+   - Download the generated DXF file (see "DXF Output in Viewer" screenshot) or upload it to Supabase (see "Uploading DXF Files to Supabase" screenshot).
 
 4. **View Debug Logs**:
    - Check the sidebar for debug logs, which include information about the process (e.g., fetched elevations, contour levels, DXF file size).
@@ -268,15 +324,20 @@ This project is licensed under the MIT License. See the `LICENSE` file for detai
 
 ### Notes on Assets Folder and Image References
 1. **Assets Folder Structure**:
-   - Ensure the `assets` folder is in the root directory of your project (same level as `app.py` and `README.md`).
+   - Ensure the `assets` folder is in the root directory of your project (same level as `main.py` and `README.md`).
    - The folder should contain the following images:
-     - `homepage.png`: Screenshot of the app’s homepage.
-     - `elevation_grid.png`: Screenshot of the Elevation Grid visualization.
-     - `contour_visualization.png`: Screenshot of the Contour Visualization.
-     - `dxf_output.png`: Screenshot of the DXF file opened in a viewer.
+     - `contour_mapper_image.png`: Updated homepage screenshot.
+     - `Homepage.png`: Original homepage screenshot.
+     - `Upload_Geojson_Data.png`: GeoJSON upload screenshot.
+     - `Selected_Area.png`: Map with a drawn polygon.
+     - `Elevation_Grid.png`: Elevation Grid visualization.
+     - `Contour_Visualization.png`: Contour Visualization.
+     - `Upload_DXF_Files.png`: DXF upload screenshot.
+     - `dxf_output.png`: DXF file opened in a viewer.
+     - `directory_structure.png`: Project directory structure.
 
 2. **Image File Names**:
-   - The README references the images as `assets/homepage.png`, `assets/elevation_grid.png`, etc. Ensure the file names match exactly, including the extension (`.png`).
+   - The README references the images with their exact spellings as shown in your directory (e.g., `Contour_Visualization.png`, `Elevation_Grid.png`).
 
 3. **Hosting on GitHub**:
    - If you’re hosting the project on GitHub, push the `assets` folder along with the images to the repository:
@@ -285,7 +346,18 @@ This project is licensed under the MIT License. See the `LICENSE` file for detai
      git commit -m "Add assets folder with screenshots"
      git push origin main
      ```
-   - The image links (`assets/homepage.png`) will work automatically when viewed on GitHub.
+   - The image links (`assets/contour_mapper_image.png`) will work automatically when viewed on GitHub.
 
 4. **Local Testing**:
    - When testing the README locally, ensure you’re viewing it in a Markdown viewer that supports local image paths (e.g., VS Code with a Markdown preview extension). Alternatively, convert the README to HTML to view the images.
+
+5. **Image Size**:
+   - The images are constrained to a width of 600 pixels using the `#width=600` syntax in the Markdown image links to prevent them from being too large.
+
+---
+
+### Additional Notes on the Project Directory
+- **File Naming**: The main script is now correctly referenced as `main.py` instead of `app.py`, matching your directory structure.
+- **Assets Folder**: All images have been updated to match the exact spellings in your directory (e.g., `Contour_Visualization.png`, `Elevation_Grid.png`).
+- **Photos Folder**: The `photos` folder appears to contain duplicates of the images in the `assets` folder. For consistency, the README references images from the `assets` folder only. You may consider removing the `photos` folder to avoid redundancy.
+- **Directory Structure Screenshot**: Added as `directory_structure.png` to help users understand the project layout.
