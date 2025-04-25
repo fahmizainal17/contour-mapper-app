@@ -13,7 +13,6 @@ import io
 import json
 import os
 import tempfile
-from dotenv import load_dotenv
 from pyproj import Transformer
 import streamlit.components.v1 as components
 
@@ -30,11 +29,14 @@ st.set_page_config(
 # Apply custom styling
 page_style()
 
-# Load environment variables
-load_dotenv()
-GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
-SUPABASE_URL = os.getenv("SUPABASE_URL")
-SUPABASE_KEY = os.getenv("SUPABASE_KEY")
+# Load environment variables from Streamlit secrets
+try:
+    GOOGLE_API_KEY = st.secrets["GOOGLE_API_KEY"]
+    SUPABASE_URL = st.secrets["SUPABASE_URL"]
+    SUPABASE_KEY = st.secrets["SUPABASE_KEY"]
+except KeyError as e:
+    st.error(f"Missing required environment variable: {e}. Please set it in Streamlit secrets.")
+    st.stop()
 
 # Initialize Supabase client
 try:
