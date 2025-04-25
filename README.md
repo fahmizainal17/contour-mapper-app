@@ -1,4 +1,4 @@
-## Contour Map Generator with Google Elevation and Supabase
+## Contour Map Generator with Google Elevation and Supabase Integration
 
 ![Original Homepage](assets/Homepage.png#width=600)
 
@@ -31,6 +31,9 @@ This project is a Streamlit-based web application that generates contour maps fr
 
 #### DXF Output in Viewer
 ![DXF Output](assets/Upload_DXF_Files.png#width=600)
+
+#### DXF Output Uploaded to Supabase
+![DXF Output](assets/sample_data_uploaded_to_supabase.png#width=600)
 
 ### Tech Stack
 - **Python 3.8–3.11**: Core programming language.
